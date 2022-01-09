@@ -12,19 +12,19 @@ define alignment=2;
 # -size: How many bytes make up an address
 define space ram type=ram_space size=$(REGISTER_SIZE) default;
 
-# -size: How many bytes do we need for register addressing 
+# -size: How many bytes do we need for register addressing
 define space register type=register_space size=4;
 
 # General registers (some pcode that follows depends on these registers being at
 # offset 0
 
-define register offset=0 size=$(REGISTER_SIZE) [ 
+define register offset=0 size=$(REGISTER_SIZE) [
 	r0 r1 r2 r3 r4 r5 r6 r7 r8 r9 r10 r11 r12 r13 r14 r15
 	r16 r17 r18 r19 r20 r21 r22 r23 r24 r25 r26 r27 r28 r29 r30 r31 ];
 
 # XER flags
 define register offset=0x400 size=1 [ xer_so xer_ov xer_ov32 xer_ca xer_ca32 xer_count ];
-	
+
 define register offset=0x500 size=1 [ fp_fx fp_fex fp_vx fp_ox
 				      fp_ux fp_zx fp_xx fp_vxsnan
 				      fp_vxisi fp_vxidi fp_vxzdz fp_vximz
@@ -58,11 +58,11 @@ define register offset=0x988 size=$(REGISTER_SIZE) [ r2Save ];
 
 # Special Purpose Registers are defined with generic names with the exception of XER, LR, CTR, SRR0, SRR1, TBL(r/w), TBU(r/w)
 # These names may be replaced within register_data section within a PPC variant's pspec file
-define register offset=0x1000 size=$(REGISTER_SIZE)  
-	[ spr000 XER    spr002 spr003 spr004 spr005 spr006 spr007 LR     CTR    spr00a spr00b spr00c spr00d spr00e spr00f 
-	  spr010 spr011 spr012 spr013 spr014 spr015 spr016 spr017 spr018 spr019 SRR0   SRR1   spr01c spr01d spr01e spr01f 
+define register offset=0x1000 size=$(REGISTER_SIZE)
+	[ spr000 XER    spr002 spr003 spr004 spr005 spr006 spr007 LR     CTR    spr00a spr00b spr00c spr00d spr00e spr00f
+	  spr010 spr011 spr012 spr013 spr014 spr015 spr016 spr017 spr018 spr019 SRR0   SRR1   spr01c spr01d spr01e spr01f
 	  spr020 spr021 spr022 spr023 spr024 spr025 spr026 spr027 spr028 spr029 spr02a spr02b spr02c spr02d spr02e spr02f
-	  spr030 spr031 spr032 spr033 spr034 spr035 spr036 spr037 spr038 spr039 spr03a spr03b spr03c spr03d spr03e spr03f
+	  spr030 spr031 spr032 spr033 spr034 spr035 spr036 spr037 spr038 spr039 CSRR0 CSRR1 spr03c spr03d spr03e spr03f
 	  spr040 spr041 spr042 spr043 spr044 spr045 spr046 spr047 spr048 spr049 spr04a spr04b spr04c spr04d spr04e spr04f
 	  spr050 spr051 spr052 spr053 spr054 spr055 spr056 spr057 spr058 spr059 spr05a spr05b spr05c spr05d spr05e spr05f
 	  spr060 spr061 spr062 spr063 spr064 spr065 spr066 spr067 spr068 spr069 spr06a spr06b spr06c spr06d spr06e spr06f
@@ -76,13 +76,13 @@ define register offset=0x1000 size=$(REGISTER_SIZE)
 	  spr0e0 spr0e1 spr0e2 spr0e3 spr0e4 spr0e5 spr0e6 spr0e7 spr0e8 spr0e9 spr0ea spr0eb spr0ec spr0ed spr0ee spr0ef
 	  spr0f0 spr0f1 spr0f2 spr0f3 spr0f4 spr0f5 spr0f6 spr0f7 spr0f8 spr0f9 spr0fa spr0fb spr0fc spr0fd spr0fe spr0ff
 	  spr100 spr101 spr102 spr103 spr104 spr105 spr106 spr107 spr108 spr109 spr10a spr10b TBLr   TBUr   spr10e spr10f
-	  spr110 spr111 spr112 spr113 spr114 spr115 spr116 spr117 spr118 spr119 spr11a spr11b TBLw   TBUw	spr11e spr11f   
+	  spr110 spr111 spr112 spr113 spr114 spr115 spr116 spr117 spr118 spr119 spr11a spr11b TBLw   TBUw	spr11e spr11f
 	  spr120 spr121 spr122 spr123 spr124 spr125 spr126 spr127 spr128 spr129 spr12a spr12b spr12c spr12d spr12e spr12f
 	  spr130 spr131 spr132 spr133 spr134 spr135 spr136 spr137 spr138 spr139 spr13a spr13b spr13c spr13d spr13e spr13f
 	  spr140 spr141 spr142 spr143 spr144 spr145 spr146 spr147 spr148 spr149 spr14a spr14b spr14c spr14d spr14e spr14f
 	  spr150 spr151 spr152 spr153 spr154 spr155 spr156 spr157 spr158 spr159 spr15a spr15b spr15c spr15d spr15e spr15f
 	  spr160 spr161 spr162 spr163 spr164 spr165 spr166 spr167 spr168 spr169 spr16a spr16b spr16c spr16d spr16e spr16f
-	  spr170 spr171 spr172 spr173 spr174 spr175 spr176 spr177 spr178 spr179 spr17a spr17b spr17c spr17d spr17e spr17f
+	  spr170 spr171 spr172 spr173 spr174 spr175 spr176 spr177 spr178 spr179 GSRR0 GSRR1 spr17c spr17d spr17e spr17f
 	  spr180 spr181 spr182 spr183 spr184 spr185 spr186 spr187 spr188 spr189 spr18a spr18b spr18c spr18d spr18e spr18f
 	  spr190 spr191 spr192 spr193 spr194 spr195 spr196 spr197 spr198 spr199 spr19a spr19b spr19c spr19d spr19e spr19f
 	  spr1a0 spr1a1 spr1a2 spr1a3 spr1a4 spr1a5 spr1a6 spr1a7 spr1a8 spr1a9 spr1aa spr1ab spr1ac spr1ad spr1ae spr1af
@@ -94,7 +94,7 @@ define register offset=0x1000 size=$(REGISTER_SIZE)
 	  spr200 spr201 spr202 spr203 spr204 spr205 spr206 spr207 spr208 spr209 spr20a spr20b spr20c spr20d spr20e spr20f
 	  spr210 spr211 spr212 spr213 spr214 spr215 spr216 spr217 spr218 spr219 spr21a spr21b spr21c spr21d spr21e spr21f
 	  spr220 spr221 spr222 spr223 spr224 spr225 spr226 spr227 spr228 spr229 spr22a spr22b spr22c spr22d spr22e spr22f
-	  spr230 spr231 spr232 spr233 spr234 spr235 spr236 spr237 spr238 spr239 spr23a spr23b spr23c spr23d spr23e spr23f
+	  spr230 spr231 spr232 spr233 spr234 spr235 spr236 spr237 spr238 spr239 MCSRR0 MCSRR1 spr23c spr23d DSRR0 DSRR1
 	  spr240 spr241 spr242 spr243 spr244 spr245 spr246 spr247 spr248 spr249 spr24a spr24b spr24c spr24d spr24e spr24f
 	  spr250 spr251 spr252 spr253 spr254 spr255 spr256 spr257 spr258 spr259 spr25a spr25b spr25c spr25d spr25e spr25f
 	  spr260 spr261 spr262 spr263 spr264 spr265 spr266 spr267 spr268 spr269 spr26a spr26b spr26c spr26d spr26e spr26f
@@ -126,7 +126,7 @@ define register offset=0x1000 size=$(REGISTER_SIZE)
 	];
 
 # Floating point registers
-define register offset=0x4000 size=8 [ 
+define register offset=0x4000 size=8 [
 	f0  f1  f2  f3  f4  f5  f6  f7  f8  f9  f10 f11 f12 f13 f14 f15
 	f16 f17 f18 f19 f20 f21 f22 f23 f24 f25 f26 f27 f28 f29 f30 f31 ];
 
@@ -154,10 +154,10 @@ define register offset=0x4800 size=4 [
 define register offset=0x6000 size=4   contextreg;
 define context contextreg
   linkreg=(0,1)            # 0 - no LR set, 1 - LR set (used to flag branch instructions to be treated as calls)
-  vle=(2,2)   		   # Used to control inclusion/disassembly of vle instructions. '1' means use vle see NOTVLE/ISVLE @define below 
+  vle=(2,2)   		   # Used to control inclusion/disassembly of vle instructions. '1' means use vle see NOTVLE/ISVLE @define below
                        # FIXME! while allowing vle context to flow is incorrect, the PowerPC disassembly action will not work at all without it
                        # and could easily flow the incorrect context when traversing between VLE and non-VLE sections.
-  
+
   # transient context
   lsmul=(3,7) noflow	   # Used for Load/store multiple parsing
   regp=(8,12) noflow	   # Used in powerISA quad word instructions
@@ -175,9 +175,9 @@ define context contextreg
 # Define Device Control Registers (specific to IBM PowerPC Embedded Controller, see instructions mfdcr/mtdcr)
 # Device Control Registers are defined with generic names
 # These names may be replaced within register_data section within a PPC variant's pspec file
-define register offset=0x7000 size=$(REGISTER_SIZE)  
-	[ dcr000 dcr001 dcr002 dcr003 dcr004 dcr005 dcr006 dcr007 dcr008 dcr009 dcr00a dcr00b dcr00c dcr00d dcr00e dcr00f 
-	  dcr010 dcr011 dcr012 dcr013 dcr014 dcr015 dcr016 dcr017 dcr018 dcr019 dcr01a dcr01b dcr01c dcr01d dcr01e dcr01f 
+define register offset=0x7000 size=$(REGISTER_SIZE)
+	[ dcr000 dcr001 dcr002 dcr003 dcr004 dcr005 dcr006 dcr007 dcr008 dcr009 dcr00a dcr00b dcr00c dcr00d dcr00e dcr00f
+	  dcr010 dcr011 dcr012 dcr013 dcr014 dcr015 dcr016 dcr017 dcr018 dcr019 dcr01a dcr01b dcr01c dcr01d dcr01e dcr01f
 	  dcr020 dcr021 dcr022 dcr023 dcr024 dcr025 dcr026 dcr027 dcr028 dcr029 dcr02a dcr02b dcr02c dcr02d dcr02e dcr02f
 	  dcr030 dcr031 dcr032 dcr033 dcr034 dcr035 dcr036 dcr037 dcr038 dcr039 dcr03a dcr03b dcr03c dcr03d dcr03e dcr03f
 	  dcr040 dcr041 dcr042 dcr043 dcr044 dcr045 dcr046 dcr047 dcr048 dcr049 dcr04a dcr04b dcr04c dcr04d dcr04e dcr04f
@@ -193,7 +193,7 @@ define register offset=0x7000 size=$(REGISTER_SIZE)
 	  dcr0e0 dcr0e1 dcr0e2 dcr0e3 dcr0e4 dcr0e5 dcr0e6 dcr0e7 dcr0e8 dcr0e9 dcr0ea dcr0eb dcr0ec dcr0ed dcr0ee dcr0ef
 	  dcr0f0 dcr0f1 dcr0f2 dcr0f3 dcr0f4 dcr0f5 dcr0f6 dcr0f7 dcr0f8 dcr0f9 dcr0fa dcr0fb dcr0fc dcr0fd dcr0fe dcr0ff
 	  dcr100 dcr101 dcr102 dcr103 dcr104 dcr105 dcr106 dcr107 dcr108 dcr109 dcr10a dcr10b dcr10c dcr10d dcr10e dcr10f
-	  dcr110 dcr111 dcr112 dcr113 dcr114 dcr115 dcr116 dcr117 dcr118 dcr119 dcr11a dcr11b dcr11c dcr11d	dcr11e dcr11f   
+	  dcr110 dcr111 dcr112 dcr113 dcr114 dcr115 dcr116 dcr117 dcr118 dcr119 dcr11a dcr11b dcr11c dcr11d	dcr11e dcr11f
 	  dcr120 dcr121 dcr122 dcr123 dcr124 dcr125 dcr126 dcr127 dcr128 dcr129 dcr12a dcr12b dcr12c dcr12d dcr12e dcr12f
 	  dcr130 dcr131 dcr132 dcr133 dcr134 dcr135 dcr136 dcr137 dcr138 dcr139 dcr13a dcr13b dcr13c dcr13d dcr13e dcr13f
 	  dcr140 dcr141 dcr142 dcr143 dcr144 dcr145 dcr146 dcr147 dcr148 dcr149 dcr14a dcr14b dcr14c dcr14d dcr14e dcr14f
@@ -242,7 +242,7 @@ define register offset=0x7000 size=$(REGISTER_SIZE)
 	  dcr3f0 dcr3f1 dcr3f2 dcr3f3 dcr3f4 dcr3f5 dcr3f6 dcr3f7 dcr3f8 dcr3f9 dcr3fa dcr3fb dcr3fc dcr3fd dcr3fe dcr3ff
 	];
 
-# ACC and SPEFSCR are part of the "EREF: A Reference for Motorola Book E and e500 Core" spec 
+# ACC and SPEFSCR are part of the "EREF: A Reference for Motorola Book E and e500 Core" spec
 # SPEFSCR is a reperposed spr200
 define register offset=0x10000 size=8 [ACC];
 
@@ -265,7 +265,7 @@ define token instr(32)
 	BH_BITS=(11,12)
 	BH_RBE=(11,20)
 	BH_RET=(11,11)
-	BI_BITS=(16,20)	
+	BI_BITS=(16,20)
 	BI_CC=(16,17)
 	BI_CR=(18,20)
 	BIT_A=(25,25)
@@ -297,7 +297,7 @@ define token instr(32)
 	BITS_11_24=(11,24)
 	BITS_11_25=(11,25)
 	BITS_12_15=(12,15)
-	BITS_12_19=(12,19) 
+	BITS_12_19=(12,19)
 	BITS_12_25=(12,25)
 	BITS_13_15=(13,15)
 	BITS_14_15=(14,15)
@@ -361,8 +361,8 @@ define token instr(32)
 	CRM7=(12,12)
 	CR_X=(8,10)
 	CR_X_CC=(6,7)
-	CT=(21,25)  
-	CT2=(21,24)  
+	CT=(21,25)
+	CT2=(21,24)
 	CX=(3,3)
 	D0=(6,15) signed
 	D1=(16,20)
@@ -427,27 +427,27 @@ define token instr(32)
 	LEV=(5,11)
 	LI=(2,25) signed
 	LK=(0,0)
-	MBH=(5,5) 
+	MBH=(5,5)
 	MBL=(6,10)
 	ME=(1,5)
 	MO=(21,25)
 	MSR_L=(16,16)
 	NB= (11,15)
 	O=(9,9)
-	OE=(10,10) 
+	OE=(10,10)
 	OP=(26,31)
 	PS=(9,9)
 	Rc=(0,0)
 	Rc2=(10,10)
 	RMC=(9,10)
-	
+
     RA=(16,20)
 	RB=(11,15)
 	RS=(21,25)
 	RT=(21,25)
 	R0=(0,0)
 	R16=(16,16)
-	
+
 	S=(21,25)
 	SBE=(11,11)
 	SH16=(10,15)
@@ -492,7 +492,7 @@ define token instr(32)
   W=(15,15)
   WX=(10,10)
 	WC=(21,22)
-	
+
 	XOP_0_10=(0,10)
 	XOP_0_5=(0,5)
 	XOP_0_8=(0,8)
@@ -509,31 +509,31 @@ define token instr(32)
 	XOP_3_10=(3,10)
 	XOP_3_9=(3,9)
 	XOP_7_10=(7,10)
-	
+
 	BD15_VLE=(1,15) signed
 	BD24_VLE=(1,24) signed
 	BF_VLE=(21,22)
 	BI_CC_VLE=(16,17)
 	BI_CR_VLE=(18,19)
 	BO_VLE=(20,21)
-	
+
 	IMM8=(0,7)
-	IMM_0_10_VLE=(0,10) 
+	IMM_0_10_VLE=(0,10)
 	IMM_11_15_VLE=(11,14)
 	IMM_16_20_VLE=(16,20)
-	IMM_21_25_VLE=(21,25) 
+	IMM_21_25_VLE=(21,25)
 	SIMM_0_10_VLE=(0,10) signed
 	SIMM_11_14_VLE=(11,14) signed
 	SIMM_21_25_VLE=(21,25) signed
 	SCL_VLE=(8,9)
-	
+
 	LEV_VLE=(11,15)
 	XOP_8_VLE=(8,15)
 	XOP_11_VLE=(11,15)
 	XOP_12_VLE=(12,15)
-	
+
 	XOP_VLE=(22,25)
-;	
+;
 
 define token instrvle(16)
 	OP4_VLE=(12,15)
@@ -549,7 +549,7 @@ define token instrvle(16)
 	UI5_VLE=(4,8)
 	XORR_VLE=(8,9)
 	XOR_VLE=(4,9)
-	
+
 	ARX_VLE=(0,3)
 	ARY_VLE=(4,7)
 	RY_VLE=(4,7)
@@ -562,7 +562,7 @@ define token instrvle(16)
 	BI16_VLE=(8,9)
 	BITS_8_9=(8,9)
 	BD8_VLE=(0,7) signed
-	
+
 	LK8_VLE=(8,8)
 	LK0_VLE=(0,0)
 ;
@@ -614,7 +614,7 @@ attach variables [ CRBD CRBR ]
 		   fp_cc0  		fp_cc1 		fp_cc2		fp_cc3
 		   fp_reserve1 	fp_vxsoft 	fp_vxsqrt 	fp_vxcvi
 		   fp_ve 		fp_oe 		fp_ue 		fp_ze
-		   fp_xe 		fp_ni 		fp_rn0 		fp_rn1 
+		   fp_xe 		fp_ni 		fp_rn0 		fp_rn1
 		 ];
 
 attach variables SR [
@@ -656,12 +656,12 @@ attach variables SPRVAL [
 	spr017	spr037	spr057	spr077	spr097	spr0b7	spr0d7	spr0f7	spr117	spr137	spr157	spr177	spr197	spr1b7	spr1d7	spr1f7	spr217	spr237	spr257	spr277	spr297	spr2b7	spr2d7	spr2f7	spr317	spr337	spr357	spr377	GQR7   	spr3b7	spr3d7	spr3f7
 	spr018	spr038	spr058	spr078	spr098	spr0b8	spr0d8	spr0f8	spr118  spr138	spr158	spr178	spr198	spr1b8	spr1d8	spr1f8	spr218	spr238	spr258	spr278	spr298	spr2b8	spr2d8	spr2f8	spr318	spr338	spr358	spr378	spr398	spr3b8  spr3d8 	spr3f8
     spr019	spr039	spr059	spr079	spr099	spr0b9	spr0d9	spr0f9	spr119	spr139	spr159	spr179	spr199	spr1b9	spr1d9	spr1f9	spr219	spr239	spr259	spr279	spr299	spr2b9	spr2d9	spr2f9	spr319	spr339	spr359	spr379	spr399	spr3b9  spr3d9	spr3f9
-	SRR0 	spr03a	spr05a	spr07a	spr09a	spr0ba	spr0da	spr0fa	spr11a  spr13a	spr15a	spr17a	spr19a	spr1ba	spr1da	spr1fa	spr21a	spr23a	spr25a	spr27a	spr29a	spr2ba	spr2da	spr2fa	spr31a	spr33a	spr35a	spr37a	spr39a	spr3ba	spr3da 	spr3fa
-	SRR1	spr03b	spr05b	spr07b	spr09b	spr0bb	spr0db	spr0fb	spr11b	spr13b	spr15b	spr17b	spr19b	spr1bb	spr1db	spr1fb	spr21b	spr23b	spr25b	spr27b	spr29b	spr2bb	spr2db	spr2fb	spr31b	spr33b	spr35b	spr37b	spr39b	spr3bb	spr3db 	spr3fb
+	SRR0 	CSRR0	spr05a	spr07a	spr09a	spr0ba	spr0da	spr0fa	spr11a  spr13a	spr15a	GSRR0	spr19a	spr1ba	spr1da	spr1fa	spr21a	MCSRR0	spr25a	spr27a	spr29a	spr2ba	spr2da	spr2fa	spr31a	spr33a	spr35a	spr37a	spr39a	spr3ba	spr3da 	spr3fa
+	SRR1	CSRR1	spr05b	spr07b	spr09b	spr0bb	spr0db	spr0fb	spr11b	spr13b	spr15b	GSRR1	spr19b	spr1bb	spr1db	spr1fb	spr21b	MCSRR1	spr25b	spr27b	spr29b	spr2bb	spr2db	spr2fb	spr31b	spr33b	spr35b	spr37b	spr39b	spr3bb	spr3db 	spr3fb
 	spr01c	spr03c	spr05c	spr07c	spr09c	spr0bc	spr0dc	spr0fc	TBLw    spr13c	spr15c	spr17c	spr19c	spr1bc	spr1dc	spr1fc	spr21c	spr23c	spr25c	spr27c	spr29c	spr2bc	spr2dc	spr2fc	spr31c	spr33c	spr35c	spr37c	spr39c	spr3bc	spr3dc	spr3fc
 	spr01d	spr03d	spr05d	spr07d	spr09d	spr0bd	spr0dd	spr0fd	TBUw    spr13d	spr15d	spr17d	spr19d	spr1bd	spr1dd	spr1fd	spr21d	spr23d	spr25d	spr27d	spr29d	spr2bd	spr2dd	spr2fd	spr31d	spr33d	spr35d	spr37d	spr39d	spr3bd	spr3dd	spr3fd
-	spr01e	spr03e	spr05e	spr07e	spr09e  spr0be	spr0de	spr0fe	spr11e	spr13e	spr15e	spr17e	spr19e	spr1be	spr1de	spr1fe	spr21e	spr23e	spr25e	spr27e	spr29e	spr2be	spr2de	spr2fe	spr31e	spr33e	spr35e	spr37e	spr39e	spr3be	spr3de	spr3fe
-	spr01f	spr03f	spr05f	spr07f	spr09f	spr0bf	spr0df	spr0ff	spr11f  spr13f	spr15f	spr17f	spr19f	spr1bf	spr1df	spr1ff	spr21f	spr23f	spr25f	spr27f	spr29f	spr2bf	spr2df	spr2ff	spr31f	spr33f	spr35f	spr37f	spr39f	spr3bf	spr3df	spr3ff
+	spr01e	spr03e	spr05e	spr07e	spr09e  spr0be	spr0de	spr0fe	spr11e	spr13e	spr15e	spr17e	spr19e	spr1be	spr1de	spr1fe	spr21e	DSRR0	spr25e	spr27e	spr29e	spr2be	spr2de	spr2fe	spr31e	spr33e	spr35e	spr37e	spr39e	spr3be	spr3de	spr3fe
+	spr01f	spr03f	spr05f	spr07f	spr09f	spr0bf	spr0df	spr0ff	spr11f  spr13f	spr15f	spr17f	spr19f	spr1bf	spr1df	spr1ff	spr21f	DSRR1	spr25f	spr27f	spr29f	spr2bf	spr2df	spr2ff	spr31f	spr33f	spr35f	spr37f	spr39f	spr3bf	spr3df	spr3ff
 ];
 
 ##
@@ -828,7 +828,7 @@ macro shiftCarry(value, sa)
 	mask = (1 << sa) - 1;
 	xer_ca = (value s< 0) && ((value & mask)!=0);
 }
-macro getCrBit(crReg, bitIndex, result) 
+macro getCrBit(crReg, bitIndex, result)
 {
 	tmp:1 = crReg >> (3-bitIndex);
 	result = tmp & 1;
@@ -836,7 +836,7 @@ macro getCrBit(crReg, bitIndex, result)
 macro setCrBit(crReg, bitIndex, bit)
 {
 	shift:1 = 3-bitIndex;
-	mask:1 = ~(1<<shift);	
+	mask:1 = ~(1<<shift);
 	tmp:1 = bit<<shift;
 	crReg = crReg & mask;
 	crReg = crReg | tmp;
@@ -972,12 +972,12 @@ macro loadRegisterPartial(reg, ea, sa) {
 macro storeRegister(reg, ea) {
 	*:4(ea) = reg;
 	ea = ea+4;
-}	
+}
 
 macro storeReg(reg) {
 	*:4(tea) = reg;
 	tea = tea+4;
-}	
+}
 
 macro storeRegisterPartial(reg, ea, sa) {
   *:4(ea) = reg;
@@ -1023,7 +1023,7 @@ macro unpackFPSCR(tmp) {
 		    fp_cc0, fp_cc1, fp_cc2, fp_cc3,
 		    fp_reserve1, fp_vxsoft, fp_vxsqrt, fp_vxcvi,
 		    fp_ve, fp_oe, fp_ue, fp_ze,
-		    fp_xe, fp_ni, fp_rn0, fp_rn1); 
+		    fp_xe, fp_ni, fp_rn0, fp_rn1);
 }
 
 ################################################################
@@ -1039,7 +1039,7 @@ addressBD: reloc		is BD & AA=1		[ reloc = BD*4; ]				{ export *[ram]:4 reloc; }
 
 OFF16SH: val		is D0 & D1 & D2 [ val = (D0 << 6) | (D1 << 1) | D2; ] { export *[const]:4 val;}
 
-# X 00-------------------------------06 07-07 08-----------10 11-----------13 14------15 16----------------------------------------------------------------------------31 
+# X 00-------------------------------06 07-07 08-----------10 11-----------13 14------15 16----------------------------------------------------------------------------31
 # X -----------------?-----------------|BO_1=1|-------?-------|-----BI_CR-----|--BI_CC---|---------------------------------------?----------------------------------------|
 CC: "lt"		is BI_CC=0 & BO_1=1 & BI_CR & BI_CC { tmp:1 = 0; getCrBit(BI_CR, BI_CC, tmp); export tmp; }
 CC: "le"		is BI_CC=1 & BO_1=0 & BI_CR & BI_CC { tmp:1 = 0; getCrBit(BI_CR, BI_CC, tmp); tmp = !tmp; export tmp; }
@@ -1068,7 +1068,7 @@ CTR_DEC: "nz"	is BO_3=0  	{CTR = CTR-1; tmp:1 = (CTR != 0); export tmp; }
 CC_TF: "t"		is BO_1=1	{}
 CC_TF: "f"		is BO_1=0	{}
 
-# X 00---------------------------------------------------10 11-----------13 14------15 16----------------------------------------------------------------------------31 
+# X 00---------------------------------------------------10 11-----------13 14------15 16----------------------------------------------------------------------------31
 # X ---------------------------?---------------------------|----BI_CR=0----|--BI_CC---|---------------------------------------?----------------------------------------|
 CC_OP: "lt"					is BI_CC=0 & BI_CR=0 & BI_CC { tmp:1 = 0; getCrBit(cr0, BI_CC, tmp); export tmp; }
 CC_OP: "eq"					is BI_CC=2 & BI_CR=0 & BI_CC { tmp:1 = 0; getCrBit(cr0, BI_CC, tmp); export tmp; }
@@ -1079,7 +1079,7 @@ CC_OP: "4*"^BI_CR^"+eq"		is BI_CC=2 & BI_CR & BI_CC { tmp:1 = 0; getCrBit(BI_CR,
 CC_OP: "4*"^BI_CR^"+gt"		is BI_CC=1 & BI_CR & BI_CC { tmp:1 = 0; getCrBit(BI_CR, BI_CC, tmp); export tmp; }
 CC_OP: "4*"^BI_CR^"+so"		is BI_CC=3 & BI_CR & BI_CC { tmp:1 = 0; getCrBit(BI_CR, BI_CC, tmp); export tmp; }
 
-# X 00----------------------------------------------------------------------------15 16-----------18 19------20 21---------------------------------------------------31 
+# X 00----------------------------------------------------------------------------15 16-----------18 19------20 21---------------------------------------------------31
 # X ---------------------------------------?----------------------------------------|----CR_B=0-----|-CR_B_CC--|---------------------------?---------------------------|
 CC_B_OP: "lt"					is CR_B_CC=0 & CR_B=0 & CR_B_CC { tmp:1 = 0; getCrBit(cr0, CR_B_CC, tmp); export tmp; }
 CC_B_OP: "eq"					is CR_B_CC=2 & CR_B=0 & CR_B_CC { tmp:1 = 0; getCrBit(cr0, CR_B_CC, tmp); export tmp; }
@@ -1090,7 +1090,7 @@ CC_B_OP: "4*"^CR_B^"+eq"		is CR_B_CC=2 & CR_B & CR_B_CC { tmp:1 = 0; getCrBit(CR
 CC_B_OP: "4*"^CR_B^"+gt"		is CR_B_CC=1 & CR_B & CR_B_CC { tmp:1 = 0; getCrBit(CR_B, CR_B_CC, tmp); export tmp; }
 CC_B_OP: "4*"^CR_B^"+so"		is CR_B_CC=3 & CR_B & CR_B_CC { tmp:1 = 0; getCrBit(CR_B, CR_B_CC, tmp); export tmp; }
 
-# X 00-----------------------------------------------------------------------------------------------------20 21-----------23 24------25 26--------------------------31 
+# X 00-----------------------------------------------------------------------------------------------------20 21-----------23 24------25 26--------------------------31
 # X ----------------------------------------------------?----------------------------------------------------|----CR_X=0-----|-CR_X_CC--|--------------?---------------|
 CC_X_OP: cr0					is CR_X_CC=0 & CR_X=0 & CR_X_CC & cr0 { tmp:1 = 0; getCrBit(cr0, CR_X_CC, tmp); export tmp; }
 CC_X_OP: cr0					is CR_X_CC=1 & CR_X=0 & CR_X_CC & cr0 { tmp:1 = 0; getCrBit(cr0, CR_X_CC, tmp); export tmp; }
@@ -1110,7 +1110,7 @@ CC_X_OPm: "gt"					is CR_X_CC=1 & CR_X & CR_X_CC {  }
 CC_X_OPm: "eq"					is CR_X_CC=2 & CR_X & CR_X_CC {  }
 CC_X_OPm: "so"					is CR_X_CC=3 & CR_X & CR_X_CC {  }
 
-# X 00--------------------------05 06-----------08 09------10 11-----------------------------------------------------------------------------------------------------31 
+# X 00--------------------------05 06-----------08 09------10 11-----------------------------------------------------------------------------------------------------31
 # X --------------?---------------|----CR_D=0-----|-CR_D_CC--|----------------------------------------------------?----------------------------------------------------|
 CC_D_OP: "lt"					is CR_D_CC=0 & CR_D=0 & CR_D_CC { tmp:1 = 0; getCrBit(cr0, CR_D_CC, tmp); export tmp; }
 CC_D_OP: "eq"					is CR_D_CC=2 & CR_D=0 & CR_D_CC { tmp:1 = 0; getCrBit(cr0, CR_D_CC, tmp); export tmp; }
@@ -1420,7 +1420,7 @@ define pcodeop __psq_st1;
 	fp_cc0 = (ps0A f< ps0B);
 	fp_cc1 = (ps0A f> ps0B);
 	fp_cc2 = (ps0A f== ps0B);
-	CRFD = (fp_cc0 << 3) | (fp_cc1 << 2) | (fp_cc2 << 1) | tmp;	
+	CRFD = (fp_cc0 << 3) | (fp_cc1 << 2) | (fp_cc2 << 1) | tmp;
 }
 
 :ps_cmpo1 CRFD,fA,fB is OP=4 & CRFD & BITS_21_22=0 & fA & fB & XOP_1_10=96 & BIT_0=0 & ps0B & ps1B & ps0A & ps1A
@@ -1429,7 +1429,7 @@ define pcodeop __psq_st1;
 	fp_cc0 = (ps1A f< ps1B);
 	fp_cc1 = (ps1A f> ps1B);
 	fp_cc2 = (ps1A f== ps1B);
-	CRFD = (fp_cc0 << 3) | (fp_cc1 << 2) | (fp_cc2 << 1) | tmp;	
+	CRFD = (fp_cc0 << 3) | (fp_cc1 << 2) | (fp_cc2 << 1) | tmp;
 }
 
 :ps_cmpu0 CRFD,fA,fB is OP=4 & CRFD & BITS_21_22=0 & fA & fB & XOP_1_10=0 & BIT_0=0 & ps0B & ps1B & ps0A & ps1A
@@ -1438,7 +1438,7 @@ define pcodeop __psq_st1;
 	fp_cc0 = (ps0A f< ps0B);
 	fp_cc1 = (ps0A f> ps0B);
 	fp_cc2 = (ps0A f== ps0B);
-	CRFD = (fp_cc0 << 3) | (fp_cc1 << 2) | (fp_cc2 << 1) | tmp;	
+	CRFD = (fp_cc0 << 3) | (fp_cc1 << 2) | (fp_cc2 << 1) | tmp;
 }
 
 :ps_cmpu1 CRFD,fA,fB is OP=4 & CRFD & BITS_21_22=0 & fA & fB & XOP_1_10=64 & BIT_0=0 & ps0B & ps1B & ps0A & ps1A
@@ -1447,7 +1447,7 @@ define pcodeop __psq_st1;
 	fp_cc0 = (ps1A f< ps1B);
 	fp_cc1 = (ps1A f> ps1B);
 	fp_cc2 = (ps1A f== ps1B);
-	CRFD = (fp_cc0 << 3) | (fp_cc1 << 2) | (fp_cc2 << 1) | tmp;	
+	CRFD = (fp_cc0 << 3) | (fp_cc1 << 2) | (fp_cc2 << 1) | tmp;
 }
 
 :ps_div fD,fA,fB is OP=4 & fD & fA & fB & BITS_6_10=0 & XOP_1_5=18 & Rc=0 & ps0D & ps1D & ps0B & ps1B & ps0A & ps1A
@@ -1828,7 +1828,7 @@ define pcodeop __psq_st1;
 	ps0D = ps0B;
 	<ps1test>
 	ps1D = ps1C;
-	if (ps1A f>= zeroFloat) goto inst_next; 
+	if (ps1A f>= zeroFloat) goto inst_next;
 	ps1D = ps1B;
 }
 
@@ -1842,7 +1842,7 @@ define pcodeop __psq_st1;
 	<ps1test>
 	ps1D = ps1C;
 	cr1flags();
-	if (ps1A f>= zeroFloat) goto inst_next; 
+	if (ps1A f>= zeroFloat) goto inst_next;
 	ps1D = ps1B;
 	cr1flags();
 }
