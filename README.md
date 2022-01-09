@@ -13,3 +13,6 @@ Where PS is a ps register, EA is the effective address of the load, type is the 
 # Installation
 
 Copy all the files from the `data/languages` folder to `Ghidra/Processors/PowerPC/data/languages` of your Ghidra installation. To use the language, select it in the language selection menu which is PowerPC 32 bit big endian Gekko/Broadway variant. Upon using the language, the .sla file should be compiled automatically.
+
+
+My Repository is based on the Paired Singles Branch in beholdnec's fork - https://github.com/beholdnec/ghidra-gekko-broadway-lang/tree/pairedsingle-fixes
